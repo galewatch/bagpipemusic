@@ -7,41 +7,55 @@
 #(ly:set-option 'point-and-click #t)
 
 % Choose a size
-#(set-global-staff-size 18)
-#(set-default-paper-size "a4" 'landscape)
+#(set-global-staff-size 22)
+#(set-default-paper-size "letter" 'landscape)
 
 \include "bagpipe.ly"
 
 \paper {
   indent = 0\mm
-  ragged-right = ##t
-  ragged-bottom = ##t
+  ragged-right = ##f
+  %ragged-bottom = ##t
 }
+
 \layout {
-  indent = 30\mm
+  indent = 10\mm
   \context {
     \Score
     \override NonMusicalPaperColumn #'line-break-permission = ##f
   }
 }
 
+commonLayout = {
+    \hideKeySignature
+    \set Score.automaticBars = ##f
+    \numericTimeSignature
+    \hideKeySignature
+    \omit Staff.TimeSignature % hideTimeSignature
+}
+
+\markup { \fontsize #2 \bold "Plain notes" }
 \score {
     {
-    \hideKeySignature
-    \set Staff.instrumentName = "Plain notes "
+        \commonLayout
+    \omit Staff.TimeSignature % hideTimeSignature
+    %\set Staff.instrumentName = "Plain notes "
     G4 a b c cflat d e f fflat g gflat A
+    \bar "|."
     }
     \addlyrics {
     G a b c cflat d e f fflat g gflat A
     }
 }
 
+\markup { \fontsize #2 \bold "Single grace notes" }
 \score {
     {
-    \hideKeySignature
-    \set Staff.instrumentName = "Single grace notes "
+        \commonLayout
+    %\set Staff.instrumentName = "Single grace notes "
     \grG a4 \gra a \grb a \grc a \grd a
     \gre a \grf a \grg a \grA a
+    \bar "|."
     }
     \addlyrics {
     "\grG" "\gra" "\grb" "\grc" "\grd"
@@ -49,13 +63,15 @@
     }
 }
 
+\markup { \fontsize #2 \bold "Doublings" }
 \score {
     {
-    \hideKeySignature
-    \set Staff.instrumentName = "Doublings "
+        \commonLayout
+    %\set Staff.instrumentName = "Doublings "
     \dblG G \dbla a \dblb b \dblc c \dbld d
     \dble e \dblf f \dblg g \dblA A \tripleA A
     \hdblf f \tdblf f
+    \bar "|."
     }
     \addlyrics {
     "\dblG" "\dbla" "\dblb" "\dblc" "\dbld"
@@ -63,15 +79,23 @@
     "\hdblf" "\\tdblf"
     }
 }
-\markup { "All other half doublings and thumb doublings are available similarly." }
+\markup {
+    \hspace #10
+    \override #'(line-width . 120)
+    \justify {
+        All other half doublings and thumb doublings are available similarly.
+    }
+}
 
+\markup { \fontsize #2 \bold "Slurs" }
 \score {
     {
-    \hideKeySignature
-    \set Staff.instrumentName = "Slurs "
+    \commonLayout
+    %\set Staff.instrumentName = "Slurs "
     \slura a \slurb b \slurc c \slurd d \wslurd d
     \slure e \slurf f \slurg g \slurA A
     \hslurf f \tslurf f
+    \bar "|."
     }
     \addlyrics {
     "\slura" "\slurb" "\slurc" "\slurd" "\wslurd"
@@ -79,18 +103,26 @@
     "\hslurf" "\\tslurf"
     }
 }
-\markup { "All other half slurs and thumb slurs are available similarly. "
-          "Note that many of these aren't really playable, and are only included for consistency." }
+\markup {
+    \hspace #10
+    \override #'(line-width . 120)
+    \justify {
+        All other half slurs and thumb slurs are available similarly.
+        Note that many of these aren't really playable, and are only included for consistency.
+    }
+}
 
 \pageBreak
 
+\markup { \fontsize #2 \bold "Shakes" }
 \score {
     {
-    \hideKeySignature
-    \set Staff.instrumentName = "Shakes "
+    \commonLayout
+    %\set Staff.instrumentName = "Shakes "
     \shakea a \shakeb b \shakec c \shaked d
     \shakee e \shakef f \shakeg g \shakeA A
     \hshakef f \tshakef f
+    \bar "|."
     }
     \addlyrics {
     "\shakea" "\shakeb" "\shakec" "\shaked"
@@ -101,12 +133,14 @@
 \markup { "All other half shakes and thumb shakes are available similarly. "
           "Note that many of these aren't really playable, and are only included for consistency." }
 
+\markup { \fontsize #2 \bold "Catches" }
 \score {
     {
-    \hideKeySignature
-    \set Staff.instrumentName = "Catches "
+    \commonLayout
+    %\set Staff.instrumentName = "Catches "
     e \catcha a e \catchb b e \catchc c e \catchd d
     f \catche e f \catchc c g \tcatchc c
+    \bar "|."
     }
     \addlyrics {
     \skip 4 "\catcha" \skip 4 "\catchb" \skip 4 "\catchc" \skip 4 "\catchd"
@@ -115,12 +149,14 @@
 }
 \markup { "All other g-grace catches and thumb catches are available similarly." }
 
+\markup { \fontsize #2 \bold "Throws" }
 \score {
     {
-    \hideKeySignature
-    \set Staff.instrumentName = "Throws "
+    \commonLayout
+    %\set Staff.instrumentName = "Throws "
     a \thrwd d G \Gthrwd d a \thrwe e a \wthrwe e
     d \thrwf f a \gripthrwd d
+    \bar "|."
     }
     \addlyrics {
     \skip 4 "\\thrwd" \skip 4 "\Gthrwd" \skip 4 "\\thrwe" \skip 4 "\\wthrwe"
@@ -128,12 +164,14 @@
     }
 }
 
+\markup { \fontsize #2 \bold "Grips and birls" }
 \score {
     {
-    \hideKeySignature
-    \set Staff.instrumentName = "Grips and birls "
+    \commonLayout
+    %\set Staff.instrumentName = "Grips and birls "
     a \grip c d \bgrip d a \egrip c
     \birl a \wbirl a \gbirl a \dbirl a
+    \bar "|."
     }
     \addlyrics {
     \skip 4 "\grip" \skip 4 "\bgrip" \skip 4 "\egrip"
@@ -141,13 +179,15 @@
     }
 }
 
+\markup { \fontsize #2 \bold "Taorluath" }
 \score {
     {
-    \hideKeySignature
-    \set Staff.instrumentName = \markup { "Taorluath " }
+    \commonLayout
+    %\set Staff.instrumentName = \markup { "Taorluath " }
     e \taor a d \btaor a G \Gtaor a
     b \taoramb b c \taoramc c b \taoramd d
     e \taorjmd a e \taorold a
+    \bar "|."
     }
     \addlyrics {
     \skip 4 "\\taor" \skip 4 "\btaor" \skip 4 "\Gtaor"
@@ -162,13 +202,15 @@
 
 \pageBreak
 
+\markup { \fontsize #2 \bold "Crunluath" }
 \score {
     {
-    \hideKeySignature
-    \set Staff.instrumentName = \markup { "Crunluath " }
+    \commonLayout
+    %\set Staff.instrumentName = \markup { "Crunluath " }
     e \crun e d \dcrun e G \Gcrun e
     b \crunamb e c \crunamc e b \crunamd e
     s16 \grg a8[ \grd b16 \crunambfosg b] s16 \grg a8[ \grd c16 \crunamcfosg c]
+    \bar "|."
     }
     \addlyrics {
     \skip 4 "\\crun" \skip 4 "\dcrun" \skip 4 "\Gcrun"
@@ -177,14 +219,16 @@
     }
 }
 
+\markup { \fontsize #2 \bold "Piobaireachd notation" }
 \score {
     {
-    \hideKeySignature
-    \set Staff.instrumentName = \markup { \column { "Piobaireachd " "notation " } }
+    \commonLayout
+    %\set Staff.instrumentName = \markup { \column { "Piobaireachd " "notation " } }
     \cad c4 A \hcad c
     e \gracad e d \grGcad d
     a \pthrwd d c \darodo b c \pdarodo b G \Gdarodo c
     a \dre e G \bari g e \dari g e \dare f
+    \bar "|."
     }
     \addlyrics {
     "\cad" \skip 4 "\hcad"
@@ -196,10 +240,11 @@
 
 \score {
     {
-    \hideKeySignature
+    \commonLayout
     \set Staff.instrumentName = " "
     a16_\trebling d8. a4_\txtaor a4_\txcrun a4_\txtaorcrun
     a4_\txtaoram a4_\txcrunam a4_\txtaorcrunam
+    \bar "|."
     }
     \addlyrics {
     "\\trebling" \skip 8. "\\txtaor" "\\txcrun" "\\txtaorcrun"
@@ -207,10 +252,12 @@
     }
 }
 
+\markup { \fontsize #2 \bold "" }
+\markup { \column { " " \fontsize #2 \bold "Ancient movements - J. MacDonald" } }
 \score {
     {
-    \hideKeySignature
-    \set Staff.instrumentName = \markup { \column { "Ancient movements" "J. MacDonald" } }
+    \commonLayout
+    %\set Staff.instrumentName = \markup { \column { "Ancient movements" "J. MacDonald" } }
     e \fifteenthcutting a G \Gfifteenthcutting a
     e \seventeenthcutting a G \Gseventeenthcutting a
     }
@@ -222,9 +269,10 @@
 
 \score {
     {
-    \hideKeySignature
-    \set Staff.instrumentName = " "
+    \commonLayout
+    %\set Staff.instrumentName = " "
     e \barluadh g G \Gbarluadh g
+    \bar "|."
     }
     \addlyrics {
     \skip 4 "\barluadh" \skip 4 "\Gbarluadh"
@@ -232,15 +280,16 @@
 }
 
 \markup {
-\column {
-    \override #'(line-width . 140)
-    \justify {
-    These are the specific bagpipe markups that are available. You need to
-    know a lot more about entering normal music in order to produce userful
-    output. All such information is available in the Lilypond tutorial and
-    manual, as well as in the tips, regression tests, and snippet repository.
+    \hspace #10
+    \column {
+        \override #'(line-width . 120)
+        \justify {
+        These are the specific bagpipe markups that are available. You need to
+        know a lot more about entering normal music in order to produce userful
+        output. All such information is available in the Lilypond tutorial and
+        manual, as well as in the tips, regression tests, and snippet repository.
+        }
     }
-}
 }
 
 \header {
